@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dynamic Child Safety ID Card</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ── INTERACTIVE CONTROLS (Hidden during print) ── */
+  #controls {
+    margin: 20px auto;
+    width: 540px;
+    text-align: center;
+    background: #0B2D5B;
+    padding: 15px;
+    border-radius: 15px;
+    color: white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  }
+  #controls select {
+    padding: 10px 20px;
+    font-family: 'Fredoka', sans-serif;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    outline: none;
+  }
+
+  @media print {
+    #controls { display: none; }
+    body { background: none; padding: 0; }
+    .print-guide { border: none; box-shadow: none; }
+  }
+
+  /* ── CARD STYLING ── */
+  body {
+    background-color: #f0f2f5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding-bottom: 50px;
+    font-family: 'Fredoka', sans-serif;
+  }
+
+  .print-guide {
+    width: 600px; 
+    height: 916px; 
+    border: 2px dashed #ccc;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    box-sizing: border-box;
+  }
+
+  .id-card {
+    width: 540px;
+    height: 856px;
+    background-color: #ffffff;
+    border-radius: 40px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-sizing: border-box;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Header Section */
+  .header {
+    height: 16%; 
+    background-color: #0B2D5B;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 25px;
+    box-sizing: border-box;
+  }
+  .red-triangle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-top: 80px solid #C62828;
+    border-right: 80px solid transparent;
+  }
+  .header h1 {
+    color: #ffffff;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 49px;
+    margin: 0;
+    letter-spacing: 2px;
+  }
+
+  /* Main Body Section */
+  .main-body {
+    display: flex;
+    flex: 1; 
+    padding: 25px 20px 10px 20px;
+    box-sizing: border-box;
+  }
+
+  .left-column {
+    width: 70%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-right: 15px;
+    box-sizing: border-box;
+  }
+  .left-column img {
+    width: 100%;
+    height: 100%; 
+    object-fit: cover;
+    border-radius: 30px;
+    background-color: #f0f0f0;
+  }
+
+  .right-column {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+    box-sizing: border-box;
+  }
+
+  .info-block { text-align: center; }
+  .info-label {
+    font-size: 15px;
+    font-weight: 500;
+    color: #0B2D5B;
+    background: #E8EEF5;
+    display: inline-block;
+    padding: 3px 14px;
+    border-radius: 12px;
+    margin-bottom: 4px;
+  }
+  .info-value {
+    font-size: 19px;
+    font-weight: 600;
+    color: #111;
+    line-height: 1.2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .flag-icon { width: 22px; height: auto; border-radius: 2px; }
+  .divider { height: 2px; background-color: #9EC3E6; margin: 2px auto; width: 60%; border-radius: 2px; }
+
+  .qr-section { display: flex; flex-direction: column; align-items: center; }
+  .qr-box { width: 135px; height: 135px; display: flex; justify-content: center; align-items: center; margin-top: 4px; }
+  .qr-box img { width: 100%; height: 100%; border-radius: 12px; }
+
+  /* Medical Panel Section */
+  .medical-panel {
+    height: 115px; 
+    margin: 0 20px 20px 20px;
+    border: 3px solid #9EC3E6;
+    border-radius: 25px;
+    display: flex;
+    box-sizing: border-box;
+    background-color: #FBFCFE;
+    padding-top: 10px;
+  }
+  .med-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; 
+    text-align: center;
+    padding: 5px 5px 0 5px;
+    overflow: hidden; /* For auto-fit container */
+  }
+  .med-divider { width: 3px; background-color: #9EC3E6; height: 70%; align-self: center; border-radius: 3px; }
+  .med-label { font-size: 16px; font-weight: 500; color: #666; margin-bottom: 4px; }
+  
+  .med-value {
+    font-weight: 700;
+    line-height: 1;
+    margin-top: 2px;
+    white-space: nowrap; /* Keep on one line for auto-fit logic */
+  }
+  .med-value.blood { color: #C62828; font-size: 40px; }
+
+  /* Footer Section */
+  .footer {
+    height: 16%; 
+    background-color: #C62828;
+    display: flex;
+    align-items: center;
+    padding: 0 30px;
+    box-sizing: border-box;
+    position: relative;
+  }
+  .phone-icon {
+    width: 55px;
+    height: 55px;
+    background-color: #ffffff;
+    border-radius: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 25px;
+  }
+  .footer-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-left: 40px;
+  }
+  .footer-label { color: #ffffff; font-size: 20px; font-weight: 500; margin-bottom: 4px; }
+  .footer-number { color: #ffffff; font-size: 46px; font-weight: 700; line-height: 1; }
+</style>
+</head>
+<body>
+
+<div id="controls">
+    <label for="childSelect" style="font-weight: 600; margin-right: 10px;">Select Child Profile:</label>
+    <select id="childSelect">
+        <option value="vihanna">Vihanna</option>
+        <option value="jashnika">Jashnika</option>
+    </select>
+</div>
+
+<div class="print-guide">
+  <div class="id-card">
+    
+    <div class="header">
+      <div class="red-triangle"></div>
+      <h1 id="card-name">VIHANNA N</h1>
+    </div>
+
+    <div class="main-body">
+      <div class="left-column">
+        <img id="card-photo" src="VihannaId-1.jpg" alt="Child Photo">
+      </div>
+
+      <div class="right-column">
+        <div class="info-block">
+          <div class="info-label">Born On</div>
+          <div class="info-value" id="card-dob">JUL 30, 2016</div>
+        </div>
+        <div class="divider"></div>
+        <div class="info-block">
+          <div class="info-label">Nationality</div>
+          <div class="info-value" id="card-nationality">
+            Indian <img class="flag-icon" src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" alt="Flag">
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div class="info-block">
+          <div class="info-label">Languages</div>
+          <div class="info-value" id="card-langs">English & Telugu</div>
+        </div>
+        <div class="qr-section">
+          <div class="info-label">Scan, if I am lost</div>
+          <div class="qr-box">
+            <img id="card-qr" src="qr-code.png" alt="QR Code">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="medical-panel">
+      <div class="med-column">
+        <div class="med-label">Blood Type</div>
+        <div class="med-value blood" id="card-blood">B+</div>
+      </div>
+      <div class="med-divider"></div>
+      <div class="med-column">
+        <div class="med-label">Allergy</div>
+        <div class="med-value" id="card-allergy" style="color:#111; font-size: 40px;">None</div>
+      </div>
+      <div class="med-divider"></div>
+      <div class="med-column">
+        <div class="med-label">Diet</div>
+        <div class="med-value" id="card-diet">Vegan</div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="phone-icon">
+        <svg viewBox="0 0 24 24" style="width:30px; fill:#C62828;">
+          <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/>
+        </svg>
+      </div>
+      <div class="footer-content">
+        <div class="footer-label" id="card-emergency-label">EMERGENCY (Call Dad)</div>
+        <div class="footer-number" id="card-phone">+61 468 467 031</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+    const childrenData = {
+        vihanna: {
+            name: "VIHANNA N",
+            dob: "JUL 30, 2016",
+            nationality: "Indian",
+            langs: "English & Telugu",
+            blood: "B+",
+            allergy: "None",
+            diet: "Vegan",
+            emergencyLabel: "EMERGENCY (Call Dad)",
+            phone: "+61 468 467 031",
+            photo: "VihannaId-1.jpg",
+            qr: "qr-code.png"
+        },
+        jashnika: {
+            name: "JASHNIKA N",
+            dob: "JAN 15, 2019",
+            nationality: "Indian",
+            langs: "English & Telugu",
+            blood: "A+",
+            allergy: "None",
+            diet: "No Red Meat",
+            emergencyLabel: "EMERGENCY (Call Dad)",
+            phone: "+61 468 467 031",
+            photo: "JashnikaId-1.jpg",
+            qr: "qr-code.png"
+        }
+    };
+
+    function autoFitText(element, maxFontSize) {
+        let fontSize = maxFontSize;
+        element.style.fontSize = fontSize + "px";
+        const containerWidth = element.parentElement.clientWidth - 10;
+        
+        while (element.scrollWidth > containerWidth && fontSize > 10) {
+            fontSize--;
+            element.style.fontSize = fontSize + "px";
+        }
+    }
+
+    function updateCard(childId) {
+        const child = childrenData[childId];
+        
+        document.getElementById('card-name').textContent = child.name;
+        document.getElementById('card-dob').textContent = child.dob;
+        document.getElementById('card-langs').textContent = child.langs;
+        document.getElementById('card-blood').textContent = child.blood;
+        document.getElementById('card-allergy').textContent = child.allergy;
+        document.getElementById('card-emergency-label').textContent = child.emergencyLabel;
+        document.getElementById('card-phone').textContent = child.phone;
+
+        const dietEl = document.getElementById('card-diet');
+        dietEl.textContent = child.diet;
+
+        // Apply Color Coding for Diet
+        const dietValue = child.diet.toLowerCase();
+        if (dietValue === "vegan") {
+            dietEl.style.color = "#2E7D32"; // Green
+        } else if (dietValue === "non-vegetarian") {
+            dietEl.style.color = "#C62828"; // Red
+        } else if (dietValue === "no red meat") {
+            dietEl.style.color = "#F9A825"; // Yellow (Amber)
+        } else {
+            dietEl.style.color = "#111"; // Default
+        }
+
+        // Apply Auto-fit to Medical Values
+        autoFitText(dietEl, 40);
+        autoFitText(document.getElementById('card-allergy'), 40);
+
+        document.getElementById('card-nationality').innerHTML = `
+            ${child.nationality} 
+            <img class="flag-icon" src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" alt="Flag">
+        `;
+        
+        document.getElementById('card-photo').src = child.photo;
+        document.getElementById('card-qr').src = child.qr;
+    }
+
+    document.getElementById('childSelect').addEventListener('change', (e) => updateCard(e.target.value));
+    window.onload = () => updateCard('vihanna');
+</script>
+
+</body>
+</html>
