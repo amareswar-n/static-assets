@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>If Found — Please Help This Child</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #FDF8F2;
+    --warm-white: #FFFCF9;
+    --navy: #1B2A4A;
+    --navy-mid: #2C4270;
+    --accent: #E8622A;
+    --accent-soft: #F5A07A;
+    --gold: #C9973A;
+    --green: #3A7D5A;
+    --green-light: #EBF5EF;
+    --text: #2A2A2A;
+    --muted: #7A7060;
+    --border: rgba(27,42,74,0.12);
+    --shadow: 0 8px 40px rgba(27,42,74,0.12);
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 24px 16px 48px;
+  }
+
+  .card {
+    background: var(--warm-white);
+    border-radius: 24px;
+    max-width: 420px;
+    width: 100%;
+    overflow: hidden;
+    box-shadow: var(--shadow), 0 1px 0 rgba(255,255,255,0.8) inset;
+    animation: rise 0.6s cubic-bezier(0.22,1,0.36,1) both;
+  }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Header ── */
+  .header {
+    background: var(--navy);
+    padding: 32px 28px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 110% -20%, #3A5A9A 0%, transparent 60%);
+  }
+  .alert-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .alert-badge .dot {
+    width: 7px; height: 7px;
+    background: #fff;
+    border-radius: 50%;
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50%      { opacity: 0.5; transform: scale(0.7); }
+  }
+  .header h1 {
+    font-family: 'Fraunces', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.2;
+    position: relative;
+  }
+  .header h1 span {
+    color: var(--accent-soft);
+  }
+  .header-sub {
+    font-size: 13.5px;
+    color: rgba(255,255,255,0.65);
+    margin-top: 8px;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  /* ── Section ── */
+  .section {
+    padding: 22px 28px;
+    border-bottom: 1px solid var(--border);
+    animation: rise 0.6s cubic-bezier(0.22,1,0.36,1) both;
+  }
+  .section:last-child { border-bottom: none; }
+  .section-label {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+
+  /* ── Contact blocks ── */
+  .contact-block {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    background: var(--cream);
+    border-radius: 14px;
+    margin-bottom: 10px;
+    transition: background 0.2s;
+  }
+  .contact-block:last-child { margin-bottom: 0; }
+  .avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .avatar.mum  { background: #FDE8E0; }
+  .avatar.dad  { background: #E0E8FD; }
+  .contact-info { flex: 1; min-width: 0; }
+  .contact-role {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 2px;
+  }
+  .contact-name {
+    font-family: 'Fraunces', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .call-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--green);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 7px 14px;
+    border-radius: 20px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .call-btn:hover { background: #2d6348; transform: scale(1.03); }
+  .call-btn svg { width: 13px; height: 13px; }
+
+  /* ── Info Rows (Address, Medical, etc.) ── */
+  .info-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .info-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .info-row:first-child { padding-top: 0; }
+  .info-icon {
+    width: 34px; height: 34px;
+    background: var(--green-light);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-size: 15px;
+  }
+  .info-text { flex: 1; }
+  .info-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 2px;
+  }
+  .info-value {
+    font-size: 14.5px;
+    color: var(--navy);
+    font-weight: 500;
+    line-height: 1.4;
+  }
+  .info-value a {
+    color: var(--navy-mid);
+    text-decoration: none;
+  }
+  .info-value a:hover { text-decoration: underline; }
+
+  /* ── Emergency box ── */
+  .emergency-box {
+    background: linear-gradient(135deg, #fff5f2 0%, #fff 100%);
+    border: 1.5px solid rgba(232,98,42,0.25);
+    border-radius: 16px;
+    padding: 16px 18px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .emergency-icon {
+    font-size: 22px;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .emergency-text .emergency-name {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 2px;
+  }
+  .emergency-text .emergency-role {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .emergency-text .call-btn {
+    font-size: 13px;
+    padding: 6px 12px;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    background: var(--navy);
+    padding: 18px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .footer-text {
+    font-size: 12px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.5;
+  }
+  .emergency-call {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 9px 16px;
+    border-radius: 20px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.2s;
+    flex-shrink: 0;
+  }
+  .emergency-call:hover { background: #cf511f; }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <div class="header">
+    <div class="alert-badge"><span class="dot"></span> Child ID Card</div>
+    <h1>Found a lost child?<br><span>Please help them get home.</span></h1>
+    <p class="header-sub">This child belongs to the family below. Please call their parents right away — they will be very worried.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Call a Parent</div>
+
+    <div class="contact-block">
+      <div class="avatar mum">👩</div>
+      <div class="contact-info">
+        <div class="contact-role">Mother</div>
+        <div class="contact-name">Sindhura</div>
+      </div>
+      <a class="call-btn" href="tel:+61490702066">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.66A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.16 6.16l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        Call
+      </a>
+    </div>
+
+    <div class="contact-block">
+      <div class="avatar dad">👨</div>
+      <div class="contact-info">
+        <div class="contact-role">Father</div>
+        <div class="contact-name">Amareswar</div>
+      </div>
+      <a class="call-btn" href="tel:+61468467031">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.66A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.16 6.16l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        Call
+      </a>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Important Information</div>
+    <div class="info-row">
+      <div class="info-icon">🥗</div>
+      <div class="info-text">
+        <div class="info-label">Diet & Allergies</div>
+        <div class="info-value">Vegan Diet / No Known Allergies</div>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-icon">🩸</div>
+      <div class="info-text">
+        <div class="info-label">Blood Type</div>
+        <div class="info-value">B+</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Family Details</div>
+    <div class="info-row">
+      <div class="info-icon">🏠</div>
+      <div class="info-text">
+        <div class="info-label">Home Address</div>
+        <div class="info-value">Unit 11 74 Great Western Highway<br>Parramatta, Sydney NSW 2150</div>
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-icon">✉️</div>
+      <div class="info-text">
+        <div class="info-label">Email</div>
+        <div class="info-value"><a href="mailto:amareswar.n@gmail.com">amareswar.n@gmail.com</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Emergency Contact</div>
+    <div class="emergency-box">
+      <div class="emergency-icon">👨‍⚕️</div>
+      <div class="emergency-text">
+        <div class="emergency-name">Dr. Siraj</div>
+        <div class="emergency-role">Family Doctor — Argyle Medical Centre</div>
+        <a class="call-btn" href="tel:+61200000003">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:13px;height:13px"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.66A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.16 6.16l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          Call Doctor
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-text">If you cannot reach the parents,<br>please call emergency services.</div>
+    <a class="emergency-call" href="tel:000">🚨 Call 000</a>
+  </div>
+
+</div>
+</body>
+</html>
