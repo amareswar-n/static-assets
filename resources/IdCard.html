@@ -34,7 +34,7 @@
   /* ── BULLETPROOF PRINT ENGINE ── */
   @media print {
     @page { 
-      size: 53.98mm 85.6mm; /* Strict Portrait CR80 Size */
+      size: 53.98mm 85.6mm; 
       margin: 0 !important; 
     }
     
@@ -45,14 +45,12 @@
       padding: 0 !important; 
       background: #fff !important; 
       overflow: hidden !important; 
-      /* Kill flexbox for print to prevent page splits */
       display: block !important; 
     }
     
     #controls { display: none !important; }
     
     .print-guide {
-      /* Fixed position makes it impossible for the browser to split pages */
       position: fixed !important; 
       top: 0 !important; 
       left: 0 !important;
@@ -103,8 +101,10 @@
   .med-column { flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 5px; overflow: hidden; }
   .med-divider { width: 3px; background-color: #9EC3E6; height: 70%; align-self: center; border-radius: 3px; }
   .med-label { font-size: 16px; font-weight: 500; color: #666; }
-  .med-value { font-weight: 700; line-height: 1; margin-top: 2px; white-space: nowrap; }
-  .med-value.blood { color: #C62828; font-size: 38px; }
+  
+  /* Removed white-space: nowrap to allow the <br> to work properly */
+  .med-value { font-weight: 700; line-height: 1.1; margin-top: 4px; text-align: center; }
+  .med-value.blood { color: #C62828; font-size: 38px; line-height: 1; }
 
   /* Footer Section with Data Matrix */
   .footer { height: 20%; background-color: #C62828; display: flex; align-items: center; padding: 10px 25px; box-sizing: border-box; }
@@ -199,7 +199,7 @@
         },
         jashnika: {
             name: "JASHNIKA N", dob: "April 10, 2018", nationality: "Indian", langs: "English & Telugu",
-            blood: "B+", allergy: "None", diet: "No RedMeat", emergencyLabel: "EMERGENCY (Call Dad)",
+            blood: "A+", allergy: "None", diet: "No<br>Red Meat", emergencyLabel: "EMERGENCY (Call Dad)",
             phone: "+61 468 467 031", photo: "JashnikaId-1.jpg"
         }
     };
@@ -225,15 +225,19 @@
         document.getElementById('card-phone').textContent = child.phone;
 
         const dietEl = document.getElementById('card-diet');
-        dietEl.textContent = child.diet;
-        const dietValue = child.diet.toLowerCase();
+        // Use innerHTML so the <br> tag actually creates a new line
+        dietEl.innerHTML = child.diet;
+        
+        // Remove the <br> temporarily just to check the color logic
+        const dietValue = child.diet.replace('<br>', ' ').toLowerCase();
         
         if (dietValue === "vegan") dietEl.style.color = "#2E7D32";
         else if (dietValue === "non-vegetarian") dietEl.style.color = "#C62828";
         else if (dietValue === "no red meat") dietEl.style.color = "#F9A825";
         else dietEl.style.color = "#111";
 
-        autoFitText(dietEl, 38);
+        // Lowered max font size from 38 to 28 so two lines of text don't overflow the box
+        autoFitText(dietEl, 28);
         autoFitText(document.getElementById('card-allergy'), 38);
         document.getElementById('card-photo').src = child.photo;
     }
