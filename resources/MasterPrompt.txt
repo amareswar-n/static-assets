@@ -1,0 +1,316 @@
+PROJECT MASTER PROMPT
+Dynamic Child Safety ID System
+
+ROLE
+You are an expert Full-Stack Developer and UI/UX Designer specializing in:
+• CSS Print Media
+• Responsive Layout Systems
+• Dynamic ID Card Interfaces
+
+Your task is to build a **Dynamic Child Safety ID System** that allows switching between children and card layouts while remaining print-accurate.
+
+-----------------------------------------------------
+
+OBJECTIVE
+
+Build a single-file web application that:
+
+1. Supports **two child profiles**
+   • Child1
+   • Child2
+
+2. Supports **three ID formats**
+   • Portrait ID (CR80)
+   • Landscape ID (CR80)
+   • Hand Band (10" x 1.25")
+
+3. Allows users to dynamically switch:
+   • Child profile
+   • Layout type
+
+4. Maintains **perfect print precision** for each layout.
+
+-----------------------------------------------------
+
+DATA ARCHITECTURE
+
+Create a JavaScript object named:
+
+childrenData
+
+Structure example:
+
+childrenData = {
+  Child1: {
+    name,
+    dob,
+    nationality,
+    languages,
+    homeArea,
+    school,
+    eyeColor,
+    bloodType,
+    allergy,
+    diet,
+    emergencyPhone
+  },
+
+  Child2: {
+    ...
+  }
+}
+
+COMMON FIELDS
+
+• Name
+• DOB
+• Nationality
+• Languages
+• Home Area
+• School
+• Eye Color
+• Blood Type
+• Allergy
+• Diet
+• Emergency Phone
+
+PROFILE SPECIFICS
+
+Vihanna
+Diet = "Vegan"
+
+Jashnika
+Diet = "No Red Meat"
+
+IMPORTANT
+When displayed in **Landscape or Wristband layouts**, the diet value **must remain on a single line**.
+
+-----------------------------------------------------
+
+LAYOUT SPECIFICATIONS
+
+1. PORTRAIT CARD (CR80)
+
+Orientation:
+Vertical
+
+Layout:
+Photo on LEFT
+Information on RIGHT
+
+Information Order:
+
+Speaks / Understands
+Born On
+Nationality
+Home Area
+School
+
+Medical Panel:
+Visible
+
+Contains:
+
+🩸 Blood Type  
+⚠️ Allergy  
+🥗 Diet
+
+-----------------------------------------------------
+
+2. LANDSCAPE CARD (CR80)
+
+Orientation:
+Horizontal
+
+Photo:
+Left side
+
+Information:
+Right side
+
+Information Grid:
+
+Row 1
+Speaks / Understands
+Born On
+Home Area
+
+Row 2
+Nationality
+Eye Color
+School
+
+Medical Panel:
+Visible
+
+-----------------------------------------------------
+
+3. HAND BAND (10in × 1.25in)
+
+Orientation:
+Long horizontal strip
+
+NO PHOTO
+NO MEDICAL PANEL
+
+Center section must contain a **2-row information grid**
+
+Row 1
+Speaks / Understands
+Born On
+Home Area
+
+Row 2
+Nationality
+Eye Color
+School
+
+-----------------------------------------------------
+
+GLOBAL UI / UX RULES
+
+Footer Layout (ALL formats)
+
+LEFT SIDE
+Emergency Contact Title
+Emergency Phone Number
+
+RIGHT SIDE
+QR Code
+
+Emergency Title must always be exactly:
+
+"Emergency Call Father"
+
+Footer text must be left aligned.
+
+-----------------------------------------------------
+
+MEDICAL PANEL RULES
+
+Displayed ONLY in:
+
+Portrait
+Landscape
+
+Icons required:
+
+🩸 Blood
+⚠️ Allergy
+🥗 Diet
+
+-----------------------------------------------------
+
+DESIGN RULES
+
+• Clean professional layout
+• No background watermark text
+• No repeating name tickers
+• No decorative superscript elements
+• High contrast emergency section
+• Print-friendly color palette
+
+-----------------------------------------------------
+
+PRINT PRECISION
+
+Use CSS print media queries.
+
+Required page sizes:
+
+Portrait / Landscape CR80
+53.98mm × 85.6mm
+
+Wristband
+254mm × 31.75mm
+
+Ensure:
+
+• No page splitting
+• Exact physical dimensions
+• Colors preserved during printing
+
+-----------------------------------------------------
+
+TECHNICAL REQUIREMENTS
+
+Implementation must use:
+
+Pure HTML
+Pure CSS
+Vanilla JavaScript
+
+All contained in a **single HTML file**
+
+-----------------------------------------------------
+
+FONTS
+
+Use Google Fonts:
+
+Fredoka
+Used for interface elements and labels
+
+Public Sans
+Used specifically for school name rendering
+
+-----------------------------------------------------
+
+FUNCTIONAL REQUIREMENTS
+
+Implement the following JavaScript functions:
+
+changeLayout()
+
+Purpose
+Switch layout class on the main card container.
+
+Accepted values:
+
+portrait
+landscape
+wristband
+
+-----------------------------------------------------
+
+updateCard()
+
+Purpose
+Load profile data from childrenData and update:
+
+• name
+• DOB
+• languages
+• home area
+• school
+• eye color
+• blood type
+• allergy
+• diet
+• emergency phone
+
+-----------------------------------------------------
+
+DOMAIN ISOLATION
+
+To prevent layout collisions, ensure **independent CSS scopes**:
+
+.portrait { }
+.landscape { }
+.wristband { }
+
+Each layout must have its own styling rules.
+
+Do NOT allow shared styles that cause layout clumping.
+
+-----------------------------------------------------
+
+FINAL OUTPUT
+
+Deliver a clean, maintainable, production-ready single HTML file that:
+
+• Dynamically switches children
+• Dynamically switches layouts
+• Maintains exact print dimensions
+• Prevents layout cross-contamination
+• Works entirely client-side
