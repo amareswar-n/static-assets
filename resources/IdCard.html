@@ -22,28 +22,26 @@
   #controls button { background-color: #C62828; color: white; padding: 10px 25px; transition: 0.3s; margin-top: 20px;}
   #controls button:hover { background-color: #a02020; }
 
-  /* ── BULLETPROOF PRINT ENGINE ── */
   @media print {
     #controls { display: none !important; }
     .print-guide { position: fixed !important; top: 0 !important; left: 0 !important; border: none !important; margin: 0 !important; padding: 0 !important; transform-origin: 0 0 !important; display: block !important; }
     .print-guide.portrait { transform: scale(0.3778) !important; width: 540px !important; height: 856px !important; }
-    .print-guide.landscape { transform: scale(0.3778) !important; width: 856px !important; height: 540px !important; }
+    .print-guide.landscape { transform: scale(0.3778) !important; width: 540px !important; height: 856px !important; }
     .print-guide.wristband { transform: scale(1) !important; width: 960px !important; height: 120px !important; }
     .id-card { box-shadow: none !important; border-radius: 0 !important; page-break-inside: avoid !important; width: 100% !important; height: 100% !important; }
     * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
   }
 
-  /* ── 1. SCREEN VIEW (BASE/PORTRAIT) ── */
   body { background-color: #f0f2f5; display: flex; flex-direction: column; align-items: center; min-height: 100vh; margin: 0; font-family: 'Fredoka', sans-serif; padding-bottom: 50px; }
-  
   .print-guide { width: 540px; height: 856px; background: #fff; display: flex; justify-content: center; align-items: center; border: 2px dashed #ccc; box-sizing: border-box; transition: width 0.4s ease, height 0.4s ease; }
-  
   .id-card { width: 100%; height: 100%; background-color: #ffffff; border-radius: 40px; overflow: hidden; display: flex; flex-direction: column; position: relative; box-sizing: border-box; }
 
-  /* HEADER */
-  .header { height: 14%; background-color: #0B2D5B; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding-bottom: 16px; }
+  /* ── 1. PORTRAIT DEFAULTS ── */
+  .header { height: 13%; background-color: #0B2D5B; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding-bottom: 12px; }
   .red-triangle { position: absolute; top: 0; left: 0; width: 0; height: 0; border-top: 80px solid #C62828; border-right: 80px solid transparent; }
   .header h1 { color: #ffffff; font-weight: 600; text-transform: uppercase; font-size: 49px; margin: 0; letter-spacing: 2px; line-height: 1; z-index: 2;}
+  
+  .repeating-name { display: none; } /* Only for wristband */
   
   .lost-help-text { font-size: 9px; font-weight: 400; color: rgba(255,255,255,0.8); font-style: italic; margin-top: 4px; letter-spacing: 0.5px; z-index: 2; }
 
@@ -53,95 +51,142 @@
   
   .right-column { width: 34%; display: flex; flex-direction: column; justify-content: space-evenly; align-items: center; gap: 0; padding: 5px 0; height: 100%; box-sizing: border-box;}
   .info-block { text-align: center; display: flex; flex-direction: column; align-items: center; }
-  .info-label { font-size: 13px; font-weight: 500; color: #0B2D5B; background: #E8EEF5; display: inline-block; padding: 2px 10px; border-radius: 12px; margin-bottom: 2px; }
-  .info-value { font-size: 16px; font-weight: 600; color: #111; display: flex; align-items: center; justify-content: center; white-space: nowrap; }
-  .info-value img { margin-left: 6px; width: 20px; } 
+  .info-label { font-size: 14px; font-weight: 500; color: #0B2D5B; background: #E8EEF5; display: inline-block; padding: 2px 10px; border-radius: 12px; margin-bottom: 2px; }
+  .info-value { font-size: 18px; font-weight: 600; color: #111; display: flex; align-items: center; justify-content: center; white-space: nowrap; }
+  .info-value img { margin-left: 6px; width: 22px; } 
 
-  .school-font { font-family: 'Public Sans', sans-serif !important; color: #002664 !important; font-size: 17px; }
+  .school-font { font-family: 'Public Sans', sans-serif !important; color: #002664 !important; font-size: 19px; }
+  #eye-color-block { display: none; }
 
-  /* MEDICAL PANEL */
-  .medical-panel { height: 110px; margin: 0 20px 20px 20px; border: 3px solid #7FAFE0; border-radius: 25px; display: flex; background-color: #FBFCFE; padding-top: 5px; }
-  .med-column { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 5px; overflow: hidden; }
-  .med-divider { width: 3px; background-color: #7FAFE0; height: 80%; align-self: center; border-radius: 3px; }
-  
-  .med-label { font-size: 13px; font-weight: 600; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
-  .med-value { font-weight: 700; font-size: 28px; line-height: 1; margin: 0; text-align: center; display: flex; align-items: center; justify-content: center; gap: 6px; text-transform: uppercase; color: #111; }
+  .medical-panel { height: 90px; margin: 0 20px 15px 20px; border: 3px solid #7FAFE0; border-radius: 25px; display: flex; background-color: #FBFCFE; padding: 8px 0; box-sizing: border-box; }
+  .med-column { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; text-align: center; padding: 0 5px; height: 100%; box-sizing: border-box; overflow: hidden; }
+  .med-divider { width: 3px; background-color: #7FAFE0; height: 100%; align-self: center; border-radius: 3px; }
+  .med-label { font-size: 12px; font-weight: 600; color: #666; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0; flex-shrink: 0; }
+  .med-value { flex: 1; width: 100%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 26px; line-height: 1.1; margin: 0; text-align: center; gap: 6px; text-transform: uppercase; color: #111; }
   .med-value.blood { color: #C62828; }
-  .med-icon { font-size: 26px; display: flex; align-items: center; justify-content: center; margin-top: -2px;} 
+  .med-icon { font-size: 24px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; } 
 
-  /* FOOTER */
-  .footer { height: 22%; background-color: #C62828; display: flex; align-items: center; padding: 10px 20px 10px 15px; box-sizing: border-box; }
-  .footer-qr-side { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 145px; gap: 6px; }
-  .qr-scan-text { font-size: 9.5px; font-weight: 700; color: white; letter-spacing: 0.5px; text-align: center; white-space: nowrap; } 
-  .footer-qr-box { width: 120px; height: 120px; background: white; border-radius: 8px; padding: 8px; box-sizing: border-box; display: flex; justify-content: center; align-items: center; }
+  /* FOOTER UPDATED: Swapped and left-aligned */
+  .footer { height: 26%; background-color: #C62828; display: flex; align-items: center; padding: 10px 15px 10px 20px; box-sizing: border-box; }
+  
+  .footer-text-side { flex: 1; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; color: white; padding-right: 10px; gap: 2px; }
+  .footer-title { font-size: 15px; font-weight: 600; color: rgba(255,255,255,0.8); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px;}
+  .footer-rel { font-size: 18px; font-weight: 700; color: white; text-transform: uppercase; line-height: 1.1; margin-bottom: 2px; }
+  .footer-number { font-size: 42px; font-weight: 700; line-height: 1; margin-top: 2px; }
+
+  .footer-qr-side { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 155px; gap: 6px; }
+  .qr-scan-text { font-size: 10.5px; font-weight: 700; color: white; letter-spacing: 0.5px; text-align: center; white-space: nowrap; } 
+  .footer-qr-box { width: 135px; height: 135px; background: white; border-radius: 8px; padding: 8px; box-sizing: border-box; display: flex; justify-content: center; align-items: center; }
   .footer-qr-box img { width: 100%; height: 100%; image-rendering: pixelated; }
 
-  .footer-text-side { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: white; padding-left: 10px; gap: 2px; }
-  .footer-title { font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.8); text-transform: uppercase; letter-spacing: 1px; }
-  .footer-rel { font-size: 16px; font-weight: 700; color: white; text-transform: uppercase; line-height: 1.1; margin-bottom: 2px; }
-  .footer-number { font-size: 40px; font-weight: 700; line-height: 1; margin-top: 2px; }
-
-  /* ── 2. LANDSCAPE LAYOUT OVERRIDES ── */
+  /* ── 2. LANDSCAPE OVERRIDES ── */
   .landscape { width: 856px; height: 540px; }
-  .landscape .header { height: 18%; padding-bottom: 0; justify-content: center; }
+  .landscape .header { height: 16%; padding-bottom: 0; justify-content: center; }
   .landscape .header h1 { font-size: 40px; }
   .landscape .lost-help-text { font-size: 9px; margin-top: 4px; }
   .landscape .red-triangle { border-top: 60px solid #C62828; border-right: 60px solid transparent; }
   
-  .landscape .main-body { padding: 15px 30px; height: 35%; flex-direction: row; }
-  .landscape .left-column { width: 25%; padding-right: 20px; }
-  .landscape .right-column { width: 75%; flex-direction: row; flex-wrap: wrap; justify-content: flex-start; align-items: flex-start; padding-left: 10px; gap: 10px 15px;}
-  .landscape .info-block { flex: 1 1 30%; text-align: left; align-items: flex-start; }
-  .landscape .info-value { justify-content: flex-start; font-size: 18px;}
-  .landscape .info-label { font-size: 12px; }
+  .landscape .main-body { flex: 1; padding: 20px 40px; flex-direction: row; height: auto;}
+  .landscape .left-column { width: 22%; padding-right: 30px; } 
   
-  .landscape .medical-panel { height: 95px; margin: 5px 30px 15px 30px; }
-  .landscape .med-value { font-size: 26px; } 
-  .landscape .med-icon { font-size: 24px; }
+  /* LANDSCAPE GRID: Tightened vertical gap */
+  .landscape .right-column { width: 78%; flex-direction: row; flex-wrap: wrap; justify-content: space-between; align-content: center; padding: 5px 0; gap: 20px 0; }
+  .landscape .info-block { flex: 0 0 31%; text-align: center; align-items: center; justify-content: center; }
+  .landscape #eye-color-block { display: flex; } 
+  .landscape .info-label { font-size: 12px; margin-bottom: 4px; padding: 2px 10px; }
+  .landscape .info-value { justify-content: center; font-size: 18px;}
+  .landscape .school-font { font-size: 18px !important; }
+  .landscape .medical-panel { height: 75px; margin: 5px 30px 15px 30px; padding: 6px 0;}
+  .landscape .med-value { font-size: 24px; } 
+  .landscape .med-icon { font-size: 22px; }
   
-  .landscape .footer { height: 27%; padding: 10px 30px; flex-direction: row; justify-content: space-between; }
-  .landscape .footer-qr-side { width: 120px; gap: 4px; }
-  .landscape .qr-scan-text { font-size: 8px; }
-  .landscape .footer-qr-box { width: 95px; height: 95px; padding: 6px; }
-  
-  .landscape .footer-text-side { align-items: flex-start; padding-left: 20px; justify-content: center; gap: 0; }
-  .landscape .footer-title { font-size: 16px; margin-bottom: 2px; }
-  .landscape .footer-rel { font-size: 18px; margin-bottom: 2px; } 
-  .landscape .footer-number { font-size: 46px; }
+  /* LANDSCAPE FOOTER: Swapped and left-aligned */
+  .landscape .footer { height: 32%; padding: 10px 30px; flex-direction: row; justify-content: space-between; }
+  .landscape .footer-text-side { align-items: flex-start; padding-left: 0; justify-content: center; gap: 0; }
+  .landscape .footer-title { font-size: 20px; margin-bottom: 4px; color: white;} 
+  .landscape .footer-number { font-size: 48px; }
+  .landscape .footer-qr-side { width: 135px; gap: 4px; }
+  .landscape .footer-qr-box { width: 115px; height: 115px; padding: 6px; }
 
-  /* ── 3. HAND BAND (WRISTBAND) OVERRIDES ── */
+  /* ── 3. HAND BAND OVERRIDES (Redesigned with Two-Row Grid) ── */
   .wristband { width: 960px; height: 120px; }
   .wristband .id-card { flex-direction: row; border-radius: 0; align-items: stretch; justify-content: space-between; padding: 0 !important; background: white; }
   .wristband .header, .wristband .main-body, .wristband .footer { height: auto; width: auto; padding: 0; margin: 0; display: flex; flex: 0 1 auto; }
-
-  .wristband .header { background-color: #0B2D5B !important; width: 260px; padding: 0 15px 0 120px !important; flex-direction: column; align-items: center; justify-content: center; }
+  
+  /* Left Blue Section */
+  .wristband .header { 
+    background-color: #0B2D5B !important; 
+    width: 240px; 
+    padding: 0 !important; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: space-between; 
+    overflow: hidden;
+  }
   .wristband .red-triangle { display: none; }
-  .wristband .header h1 { font-size: 26px; color: #ffffff !important; text-align: center; line-height: 1.1; margin: 0; padding: 0; white-space: nowrap; }
-  .wristband .lost-help-text { font-size: 8px !important; margin-top: 2px !important; color: rgba(255,255,255,0.7) !important; white-space: nowrap !important; }
+  
+  .wristband .header h1 { 
+    font-size: 24px; 
+    color: #ffffff !important; 
+    text-align: center; 
+    line-height: 1.1; 
+    margin: 5px 0; 
+    padding: 0; 
+    white-space: nowrap; 
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
 
+  /* Ticker styles updated for high-contrast watermark */
+  .wristband .repeating-name { 
+    display: block; 
+    width: 100%; 
+    background-color: rgba(255,255,255,0.08); 
+    color: rgba(255,255,255,0.4); 
+    font-size: 8px; 
+    text-transform: uppercase; 
+    white-space: nowrap; 
+    padding: 4px 0;
+    letter-spacing: 4px;
+    text-align: center;
+  }
+
+  .wristband .lost-help-text { display: none; }
+  
   .wristband .medical-panel { display: none !important; }
   .wristband .left-column { display: none; } 
   .wristband .qr-scan-text { display: none !important; } 
   
-  .wristband .main-body { flex: 1; justify-content: center; background-color: #ffffff; }
-  .wristband .right-column { width: 100%; display: flex; flex-direction: row; justify-content: space-evenly; align-items: center; gap: 10px; }
-  .wristband .info-block { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; margin: 0; padding: 0; }
+  /* Middle White Section: Two-Row Flex Grid Enforcement */
+  .wristband .main-body { flex: 1; justify-content: center; background-color: #ffffff; padding: 10px 15px;}
+  .wristband .right-column { 
+    width: 100%; 
+    display: flex; 
+    flex-direction: row; 
+    flex-wrap: wrap; 
+    justify-content: space-between; 
+    align-content: center; 
+    gap: 15px 0; 
+  }
   
-  .wristband .info-label { font-size: 11px !important; font-weight: 600 !important; color: rgba(17, 17, 17, 0.4) !important; background: transparent !important; padding: 0 !important; margin: 0 0 4px 0 !important; text-transform: uppercase !important; letter-spacing: 0.5px !important; text-align: left !important; white-space: nowrap !important; }
-  .wristband .info-value { font-size: 14px !important; font-weight: 700 !important; margin: 0 !important; gap: 6px !important; line-height: 1.2 !important; text-align: left !important; justify-content: flex-start !important; white-space: nowrap !important; }
-  .wristband .info-value img { width: 14px !important; margin-left: 0 !important;}
-  .wristband .school-font { font-size: 14px !important; }
+  .wristband .info-block { flex: 0 0 31%; text-align: center; align-items: center; justify-content: center; }
+  .wristband #eye-color-block { display: flex !important; } /* Eye Color shown for 3x2 grid */
   
-  .wristband .footer { background-color: #C62828 !important; width: 340px; padding: 0 120px 0 20px !important; align-items: center; gap: 15px; justify-content: space-between; }
+  .wristband .info-label { font-size: 10px !important; font-weight: 600 !important; color: rgba(17, 17, 17, 0.4) !important; background: transparent !important; padding: 0 !important; margin: 0 0 4px 0 !important; text-transform: uppercase !important; letter-spacing: 0.5px !important; text-align: left !important; white-space: nowrap !important; }
+  .wristband .info-value { font-size: 13px !important; font-weight: 700 !important; margin: 0 !important; gap: 4px !important; line-height: 1.1 !important; text-align: left !important; justify-content: flex-start !important; white-space: nowrap !important; }
+  .wristband .info-value img { width: 12px !important; margin-left: 0 !important;}
+  .wristband .school-font { font-size: 13px !important; }
+
+  /* Right Red Section (Emergency Section) */
+  .wristband .footer { background-color: #C62828 !important; width: 320px; padding: 0 15px !important; align-items: center; gap: 10px; justify-content: space-between; }
   .wristband .footer-text-side { align-items: flex-start; justify-content: center; padding: 0; gap: 0;}
-  
   .wristband .footer-title { display: none !important; } 
   .wristband .footer-rel { font-size: 10px !important; font-weight: 600 !important; color: rgba(255, 255, 255, 0.7) !important; margin: 0 0 4px 0 !important; text-transform: uppercase !important; text-align: left !important; white-space: nowrap !important; letter-spacing: 0.5px; }
-  .wristband .footer-number { font-size: 18px !important; font-weight: 700 !important; color: #ffffff !important; text-align: left !important; line-height: 1.1 !important; margin: 0 !important; white-space: nowrap !important; }
+  .wristband .footer-number { font-size: 16px !important; font-weight: 700 !important; color: #ffffff !important; text-align: left !important; line-height: 1.1 !important; margin: 0 !important; white-space: nowrap !important; }
   
-  .wristband .footer-qr-side { width: 66px; display: flex; justify-content: center; }
-  .wristband .footer-qr-box { width: 66px; height: 66px; padding: 5px !important; border-radius: 4px !important; background: #ffffff !important; display: flex; align-items: center; justify-content: center; }
-
+  .wristband .footer-qr-side { width: 60px; display: flex; justify-content: center; }
+  .wristband .footer-qr-box { width: 60px; height: 60px; padding: 4px !important; border-radius: 4px !important; background: #ffffff !important; display: flex; align-items: center; justify-content: center; }
 </style>
 </head>
 <body>
@@ -154,85 +199,55 @@
           <option value="jashnika">Jashnika</option>
       </select>
     </div>
-    
     <div class="control-group">
       <label for="layoutSelect">Design Layout</label>
       <select id="layoutSelect" onchange="changeLayout()">
           <option value="portrait">Portrait ID (CR80)</option>
           <option value="landscape">Landscape ID (CR80)</option>
-          <option value="wristband">Hand Band (10" x 1.25")</option>
+          <option value="wristband" selected>Hand Band (10" x 1.25")</option>
       </select>
     </div>
-
     <button onclick="window.print()">Save to PDF</button>
 </div>
 
-<div class="print-guide portrait" id="printGuide">
+<div class="print-guide wristband" id="printGuide">
   <div class="id-card">
-    <div class="header">
-      <div class="red-triangle"></div>
+    <div class="header" id="band-header">
+      <div class="repeating-name" id="repeat-top">VIHANNA N &nbsp;&nbsp;&nbsp; VIHANNA N &nbsp;&nbsp;&nbsp; VIHANNA N</div>
       <h1 id="card-name">VIHANNA N</h1>
+      <div class="repeating-name" id="repeat-bottom">VIHANNA N &nbsp;&nbsp;&nbsp; VIHANNA N &nbsp;&nbsp;&nbsp; VIHANNA N</div>
+      <div class="red-triangle"></div>
       <div class="lost-help-text">If I am lost please help me</div>
     </div>
-
     <div class="main-body">
-      <div class="left-column">
-        <img id="card-photo" src="VihannaId-1.jpg" alt="Child Photo">
-      </div>
-      <div class="right-column">
-        <div class="info-block">
-          <div class="info-label">Speaks / Understands</div>
-          <div id="card-langs" class="info-value">English & Telugu</div>
-        </div>
-        <div class="info-block">
-          <div class="info-label">Home Area</div>
-          <div id="card-home" class="info-value">Parramatta NSW</div>
-        </div>
-        <div class="info-block">
-          <div class="info-label">School</div>
-          <div id="card-school" class="info-value school-font">Bayanami PS</div>
-        </div>
-        <div class="info-block">
-          <div class="info-label">Born On</div>
-          <div id="card-dob" class="info-value">July 30, 2016</div>
-        </div>
-        <div class="info-block">
-          <div class="info-label">Nationality</div>
-          <div id="card-nationality" class="info-value">
-            Indian <img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg">
-          </div>
-        </div>
+      <div class="left-column"><img id="card-photo" src="VihannaId-1.jpg" alt="Child Photo"></div>
+      <div class="right-column" id="info-grid">
+        <div class="info-block" id="block-langs"><div class="info-label">Speaks / Understands</div><div id="card-langs" class="info-value">English & Telugu</div></div>
+        <div class="info-block" id="block-dob"><div class="info-label">Born On</div><div id="card-dob" class="info-value">July 30, 2016</div></div>
+        <div class="info-block" id="block-home"><div class="info-label">Home Area</div><div id="card-home" class="info-value">Parramatta NSW</div></div>
+        <div class="info-block" id="block-nat"><div class="info-label">Nationality</div><div id="card-nationality" class="info-value">Indian <img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg"></div></div>
+        <div class="info-block" id="eye-color-block"><div class="info-label">Eye Color</div><div id="card-eyes" class="info-value">Brown</div></div>
+        <div class="info-block" id="block-school"><div class="info-label">School</div><div id="card-school" class="info-value school-font">Bayanami PS</div></div>
       </div>
     </div>
-
     <div class="medical-panel">
-      <div class="med-column">
-        <div class="med-label">Blood Type</div>
-        <div class="med-value blood"><span class="med-icon">🩸</span><span id="card-blood">B+</span></div>
-      </div>
+      <div class="med-column"><div class="med-label">Blood Type</div><div class="med-value blood"><span class="med-icon">🩸</span><span id="card-blood">B+</span></div></div>
       <div class="med-divider"></div>
-      <div class="med-column">
-        <div class="med-label">Allergy</div>
-        <div class="med-value"><span class="med-icon">⚠️</span><span id="card-allergy">None</span></div>
-      </div>
+      <div class="med-column"><div class="med-label">Allergy</div><div class="med-value"><span class="med-icon">⚠️</span><span id="card-allergy">None</span></div></div>
       <div class="med-divider"></div>
-      <div class="med-column">
-        <div class="med-label">Diet</div>
-        <div class="med-value"><span id="diet-icon" class="med-icon">🥗</span><span id="card-diet">Vegan</span></div>
-      </div>
+      <div class="med-column"><div class="med-label">Diet</div><div class="med-value"><span id="diet-icon" class="med-icon">🥗</span><span id="card-diet">Vegan</span></div></div>
     </div>
-
     <div class="footer">
-      <div class="footer-qr-side">
-        <div class="qr-scan-text">SCAN FOR CONTACT INFO</div>
-        <div class="footer-qr-box">
-          <img id="card-qr" src="https://barcode.tec-it.com/barcode.ashx?data=https%3A%2F%2Famareswar-n.github.io%2Fstatic-assets%2Fresources%2Fv-id-8f72a9b4.html&code=DataMatrix&multiplebarcodes=true&translate-esc=on&dmsize=Default" alt="Data Matrix">
-        </div>
-      </div>
+      <div class="repeating-name" id="em-repeat-top">VIHANNA N &nbsp;&nbsp; VIHANNA N &nbsp;&nbsp; VIHANNA N</div>
+      <div class="repeating-name" id="em-repeat-bottom">VIHANNA N &nbsp;&nbsp; VIHANNA N &nbsp;&nbsp; VIHANNA N</div>
       <div class="footer-text-side">
-        <div class="footer-title">EMERGENCY CONTACT</div>
+        <div id="emergency-title" class="footer-title">EMERGENCY CONTACT</div>
         <div id="card-emergency-rel" class="footer-rel">CALL DAD</div>
         <div id="card-phone" class="footer-number">+61 468 467 031</div>
+      </div>
+      <div class="footer-qr-side">
+        <div class="qr-scan-text">SCAN FOR CONTACT INFO</div>
+        <div class="footer-qr-box"><img id="card-qr" src="https://barcode.tec-it.com/barcode.ashx?data=https%3A%2F%2Famareswar-n.github.io%2Fstatic-assets%2Fresources%2Fv-id-8f72a9b4.html&code=DataMatrix&multiplebarcodes=true&translate-esc=on&dmsize=Default" alt="Data Matrix"></div>
       </div>
     </div>
   </div>
@@ -240,31 +255,16 @@
 
 <script>
     const childrenData = {
-        vihanna: {
-            name: "VIHANNA N", dob: "July 30, 2016", nationality: "Indian", langs: "English & Telugu",
-            home: "Parramatta NSW", school: "Bayanami PS",
-            blood: "B+", allergy: "None", diet: "Vegan", emergencyRel: "Call Dad",
-            phone: "+61 468 467 031", photo: "VihannaId-1.jpg"
-        },
-        jashnika: {
-            name: "JASHNIKA N", dob: "April 10, 2018", nationality: "Indian", langs: "English & Telugu",
-            home: "Parramatta NSW", school: "Bayanami PS",
-            blood: "B+", allergy: "None", diet: "No Red Meat", emergencyRel: "Call Dad",
-            phone: "+61 468 467 031", photo: "JashnikaId-1.jpg"
-        }
+        vihanna: { name: "VIHANNA N", dob: "July 30, 2016", nationality: "Indian", langs: "English & Telugu", home: "Parramatta NSW", school: "Bayanami PS", eyes: "Brown", blood: "B+", allergy: "None", diet: "Vegan", emergencyRel: "Call Dad", phone: "+61 468 467 031", photo: "VihannaId-1.jpg" },
+        jashnika: { name: "JASHNIKA N", dob: "April 10, 2018", nationality: "Indian", langs: "English & Telugu", home: "Parramatta NSW", school: "Bayanami PS", eyes: "Brown", blood: "B+", allergy: "None", diet: "No Red<br>Meat", emergencyRel: "Call Dad", phone: "+61 468 467 031", photo: "JashnikaId-1.jpg" }
     };
 
     function autoFitText(element, maxFontSize) {
-        // SAFETY GUARD: If element is hidden (like in wristband mode), skip the math completely
         if (!element || element.offsetParent === null) return; 
-
         let fontSize = maxFontSize;
         element.style.fontSize = fontSize + "px";
         const containerWidth = element.parentElement.parentElement.clientWidth - 10;
-        
-        // Secondary safety guard to prevent infinite loops
         if (containerWidth <= 0) return; 
-
         while (element.scrollWidth > containerWidth && fontSize > 10) {
             fontSize--;
             element.style.fontSize = fontSize + "px";
@@ -273,42 +273,61 @@
 
     function updateCard(childId) {
         const child = childrenData[childId];
-        
-        // 1. UPDATE PHOTO INSTANTLY (Moved to the top so it never gets blocked)
+        const layout = document.getElementById('layoutSelect').value;
         document.getElementById('card-photo').src = child.photo;
-
-        // 2. Update all text fields
         document.getElementById('card-name').textContent = child.name;
         document.getElementById('card-dob').textContent = child.dob;
         document.getElementById('card-langs').textContent = child.langs;
         document.getElementById('card-home').textContent = child.home;
         document.getElementById('card-school').textContent = child.school;
+        document.getElementById('card-eyes').textContent = child.eyes;
         document.getElementById('card-blood').textContent = child.blood;
         document.getElementById('card-allergy').textContent = child.allergy;
-        document.getElementById('card-emergency-rel').textContent = child.emergencyRel;
         document.getElementById('card-phone').textContent = child.phone;
 
-        const layout = document.getElementById('layoutSelect').value;
+        // Update repeating strips for wristband (ensure spacing)
+        const repeatText = `${child.name} &nbsp;&nbsp;&nbsp; ${child.name} &nbsp;&nbsp;&nbsp; ${child.name}`;
+        document.getElementById('repeat-top').innerHTML = repeatText;
+        document.getElementById('repeat-bottom').innerHTML = repeatText;
+        document.getElementById('em-repeat-top').innerHTML = repeatText;
+        document.getElementById('em-repeat-bottom').innerHTML = repeatText;
+
+        const grid = document.getElementById('info-grid');
+        const blocks = { langs: document.getElementById('block-langs'), dob: document.getElementById('block-dob'), home: document.getElementById('block-home'), nat: document.getElementById('block-nat'), eyes: document.getElementById('eye-color-block'), school: document.getElementById('block-school') };
+
+        if (layout === 'portrait') {
+            grid.appendChild(blocks.langs); grid.appendChild(blocks.dob); grid.appendChild(blocks.nat); grid.appendChild(blocks.home); grid.appendChild(blocks.school);
+        } else {
+            grid.appendChild(blocks.langs); grid.appendChild(blocks.dob); grid.appendChild(blocks.home); grid.appendChild(blocks.nat); grid.appendChild(blocks.eyes); grid.appendChild(blocks.school);
+        }
+
+        const emTitleEl = document.getElementById('emergency-title');
+        const emRelEl = document.getElementById('card-emergency-rel');
+        if (layout === 'landscape') {
+            emTitleEl.textContent = "EMERGENCY " + child.emergencyRel.toUpperCase(); emRelEl.style.display = "none"; emTitleEl.style.marginBottom = "22px";
+        } else {
+            emTitleEl.textContent = "EMERGENCY CONTACT"; emRelEl.style.display = "block"; emRelEl.textContent = child.emergencyRel.toUpperCase(); emTitleEl.style.marginBottom = "4px"; 
+        }
+
         const dietEl = document.getElementById('card-diet');
         const dietIconEl = document.getElementById('diet-icon');
-        
-        dietEl.innerHTML = child.diet;
-        const dietValue = child.diet.toLowerCase();
-        
-        // Auto-assign Diet Emoji
+        if (layout === 'wristband' || layout === 'landscape') {
+            dietEl.innerHTML = child.diet.replace(/<br>/g, ' ');
+        } else {
+            dietEl.innerHTML = child.diet;
+        }
+        const dietValue = child.diet.replace(/<br>/g, ' ').toLowerCase();
         if (dietValue === "vegan") dietIconEl.textContent = "🥗";
         else if (dietValue === "no red meat") dietIconEl.textContent = "🍗";
         else dietIconEl.textContent = "🍽️";
-
-        // Assign colors dynamically based on diet
+        
         const dietContainer = dietEl.parentElement;
         if (dietValue === "vegan") dietContainer.style.color = "#2E7D32";
         else if (dietValue === "non-vegetarian") dietContainer.style.color = "#C62828";
         else if (dietValue === "no red meat") dietContainer.style.color = "#F9A825";
         else dietContainer.style.color = "#111";
 
-        // 3. Run Math calculations safely at the end
-        const targetSize = (layout === 'landscape') ? 26 : 28;
+        const targetSize = (layout === 'landscape') ? 24 : 26;
         autoFitText(document.getElementById('card-blood'), targetSize);
         autoFitText(dietEl, targetSize);
         autoFitText(document.getElementById('card-allergy'), targetSize);
@@ -318,9 +337,7 @@
         const layout = document.getElementById('layoutSelect').value;
         const guide = document.getElementById('printGuide');
         const pageStyle = document.getElementById('print-page-style');
-
         guide.className = 'print-guide ' + layout;
-
         if (layout === 'portrait') {
             pageStyle.innerHTML = `@media print { @page { size: 53.98mm 85.6mm; margin: 0 !important; } html, body { width: 53.98mm !important; height: 85.6mm !important; margin: 0 !important; padding: 0 !important; background: #fff !important; overflow: hidden !important; display: block !important; } }`;
         } else if (layout === 'landscape') {
@@ -328,16 +345,10 @@
         } else if (layout === 'wristband') {
             pageStyle.innerHTML = `@media print { @page { size: 254mm 31.75mm; margin: 0 !important; } html, body { width: 254mm !important; height: 31.75mm !important; margin: 0 !important; padding: 0 !important; background: #fff !important; overflow: hidden !important; display: block !important; } }`;
         }
-
-        setTimeout(() => {
-            const childId = document.getElementById('childSelect').value;
-            updateCard(childId);
-        }, 100);
+        setTimeout(() => { updateCard(document.getElementById('childSelect').value); }, 100);
     }
-
     document.getElementById('childSelect').addEventListener('change', (e) => updateCard(e.target.value));
     window.onload = () => updateCard('vihanna');
 </script>
-
 </body>
 </html>
